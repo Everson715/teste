@@ -1,6 +1,7 @@
 package pagamento;
 
 import java.util.Scanner;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,6 +16,7 @@ public class Cartao {
     private String CVC;
     private int parcelas;
     private double valor; // Atributo para armazenar o valor final do ingresso
+    private String idPagamento;
 
     // Método para capturar dados do cartão
     public void capturarDados(Scanner scanner) {
@@ -105,6 +107,8 @@ public class Cartao {
                 System.out.println("Tipo de pagamento inválido. Por favor, digite Crédito ou Débito.");
             }
         }
+        // Gerar ID do pagamento
+        gerarIdPagamento();
     }
 
     // Método para perguntar ao usuário em quantas vezes ele deseja parcelar a compra
@@ -146,6 +150,11 @@ public class Cartao {
         return sb.toString();
     }
 
+    // Método para gerar o ID do pagamento
+    public void gerarIdPagamento() {
+        this.idPagamento = UUID.randomUUID().toString();
+    }
+
     @Override
     public String toString() {
         double valorParcela = 0;
@@ -160,7 +169,8 @@ public class Cartao {
                 "Tipo de Pagamento: " + tipoDePagamento.substring(0, 1).toUpperCase() + tipoDePagamento.substring(1) + "\n" +
                 "Valor Total: R$ " + valor + "\n" +
                 (parcelas > 0 ? "Valor da Parcela: R$ " + valorParcela + "\n" +
-                        "Quantidade de Parcelas: " + parcelas : "");
+                        "Quantidade de Parcelas: " + parcelas + "\n" : "") +
+                "Código da compra: " + idPagamento;
     }
 
     // Getters e Setters
@@ -222,5 +232,9 @@ public class Cartao {
 
     public void setNomeTitular(String nomeTitular) {
         this.nomeTitular = nomeTitular;
+    }
+
+    public String getIdPagamento() {
+        return idPagamento;
     }
 }

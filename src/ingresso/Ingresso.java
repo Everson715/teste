@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Ingresso {
 
     // Atributos
-    private double valor;
+    private final double valor;
 
     // Construtor
     public Ingresso(double valor) {
